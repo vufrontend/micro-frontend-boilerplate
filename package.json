@@ -3,18 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^5.6.1",
+    "antd": "^3.25.1",
+    "craco-antd": "^1.14.1",
+    "flow-bin": "^0.112.0",
+    "jest-enzyme": "^7.1.2",
     "react": "^16.11.0",
+    "react-app-polyfill": "^1.0.4",
+    "react-dev-utils": "^9.1.0",
     "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "webpackbar": "^4.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "start": "nodemon -w ./src/styles/theme.less --exec 'craco start'",
+    "build": "craco build",
+    "test": "craco test",
+    "flow": "flow",
+    "lint": "eslint . && flow"
   },
   "browserslist": {
     "production": [
@@ -27,5 +34,54 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom-global",
+    "globals": {
+      "NODE_ENV": "test"
+    },
+    "roots": [
+      "./src"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js}",
+      "!<rootDir>/node_modules/",
+      "!src/*/**/*.stories.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|xlsx)$": "<rootDir>/tools/mocks/file-mock.js",
+      "\\.svg$": "<rootDir>/tools/mocks/svg-mock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/enzyme-to-json/serializer"
+    ]
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.3",
+    "nodemon": "^1.19.4",
+    "prettier": "^1.19.1",
+    "react-test-renderer": "^16.11.0"
   }
 }

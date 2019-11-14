@@ -1,0 +1,15 @@
+[ignore]
+.*/node_modules/*
+.*/build/.*
+
+[include]
+./src/*
+
+[libs]
+
+[lints]
+
+[options]
+module.file_ext=.less
+module.name_mapper.extension='less' -> 'empty/object'
+[strict]
