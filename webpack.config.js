@@ -4,6 +4,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const TerserJSPlugin = require("terser-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const AntDesignThemePlugin = require("antd-theme-webpack-plugin")
+const ManifestPlugin = require("webpack-manifest-plugin")
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
 const options = {
   antDir: path.join(__dirname, "./node_modules/antd"),
@@ -31,27 +33,17 @@ module.exports = {
     path: path.join(__dirname, "./build"),
     publicPath: "/"
   },
-  // externals: {
-  //   react: "React",
-  //   "react-dom": "ReactDOM"
-  // },
+  externals: {
+    react: "React",
+    "react-dom": "ReactDOM",
+    antd: "antd"
+  },
   optimization: {
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
     splitChunks: {
       chunks: "all",
-      maxInitialRequests: Infinity,
-      minSize: 0,
       cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name(module) {
-            const packageName = module.context.match(
-              /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-            )[1]
-            // npm package names are URL-safe, but some servers don't like @ symbols
-            return `vender.${packageName.replace("@", "")}`
-          }
-        }
+        default: false
       }
     }
   },
@@ -123,6 +115,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebPackPlugin({
       template: "./public/index.html",
       filename: "index.html",
@@ -133,6 +126,7 @@ module.exports = {
       chunkFilename: "[id].css",
       ignoreOrder: false // Enable to remove warnings about conflicting order
     }),
-    new AntDesignThemePlugin(options)
+    new AntDesignThemePlugin(options),
+    new ManifestPlugin()
   ]
 }
