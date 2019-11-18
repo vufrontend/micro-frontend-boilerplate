@@ -1,18 +1,22 @@
 {
+  "parser": "babel-eslint",
   "extends": [
-    "react-app",
     "airbnb",
+    "plugin:flowtype/recommended",
     "plugin:jsx-a11y/recommended",
     "prettier",
     "prettier/react"
   ],
   "plugins": [
     "jsx-a11y",
-    "prettier"
+    "prettier",
+    "flowtype"
   ],
   "rules": {
     "semi": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
     "prettier/prettier": [
       "error", {
         "semi": false
@@ -20,7 +24,8 @@
     ]
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "jest": true
   },
   "globals": {
     "shallow": true,

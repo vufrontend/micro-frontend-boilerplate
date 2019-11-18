@@ -1,8 +1,12 @@
 import "react-app-polyfill/ie11"
 import React from "react"
 import ReactDOM from "react-dom"
-import App from "./App"
+import { createBrowserHistory } from "history"
+
 import { unregister } from "./serviceWorker"
+import App from "./App"
+
+// const history = createBrowserHistory()
 
 window.renderMicro = (containerId, history) => {
   ReactDOM.render(
@@ -16,4 +20,4 @@ window.unmountMicro = containerId => {
   ReactDOM.unmountComponentAtNode(document.getElementById(containerId))
 }
 
-window.renderMicro("micro")
+window.renderMicro("micro", createBrowserHistory())
